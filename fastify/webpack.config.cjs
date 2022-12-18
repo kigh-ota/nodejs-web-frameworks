@@ -1,41 +1,52 @@
 const path = require('path');
-const TS_MODULE = {
-  rules: [
-    {
-      test: /\.tsx?$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                // async/awaitに必要
-                targets: {
-                  node: 'current',
-                },
-              },
-            ],
-            '@babel/preset-typescript',
-            '@babel/preset-react',
-          ],
-          plugins: ['@babel/plugin-proposal-class-properties'],
-        },
-      },
-    },
-  ],
-};
+const { fastFormats } = require('./build/main');
 
 module.exports = [
   {
     mode: 'development',
     devtool: 'inline-source-map',
 
+    target: 'node',
+    entry: './src/server/main.ts',
+    output: {
+      path: path.join(__dirname, 'build'),
+      filename: 'main.js',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    // // async/awaitに必要
+                    // targets: {
+                    //   node: 'current',
+                    // },
+                  },
+                ],
+                '@babel/preset-typescript',
+              ],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+        },
+      ]
+    },
+    resolve: {
+      extensions: ['.ts', '.js'],
+    }
+  },
+  {
+    mode: 'development',
+    devtool: 'inline-source-map',
+
     target: 'web',
-    entry: './ui/index.tsx', // 起点となるファイル
-    // development は、 source map file を作成、再ビルド時間の短縮などの設定となる
-    // production は、コードの圧縮やモジュールの最適化が行われる設定となる
-    // 出力先設定 __dirname は node でのカレントディレクトリのパスが格納される変数
+    entry: './src/ui/index.tsx',
     output: {
       path: path.join(
         __dirname,
@@ -44,13 +55,31 @@ module.exports = [
       ),
       filename: 'index.js',
     },
-    module: TS_MODULE,
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                  // {
+                  //   targets: "chrome"
+                  // },
+                ],
+                '@babel/preset-typescript',
+                '@babel/preset-react',
+              ],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+        },
+      ]
+    },
     resolve: {
-      extensions: [
-        '.ts',
-        '.tsx',
-        '.js', // node_modulesのライブラリ読み込みに必要
-      ],
+      extensions: ['.ts', '.tsx', '.js'],
     },
   },
 ];

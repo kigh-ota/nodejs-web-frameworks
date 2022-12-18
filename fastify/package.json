@@ -1,8 +1,7 @@
 {
-  "type": "module",
   "scripts": {
-    "start": "node main.js",
-    "build": "tsc --noEmit && webpack"
+    "start": "node build/main.js",
+    "build": "tsc --noEmit -p tsconfig.server.json && tsc --noEmit -p tsconfig.ui.json && webpack"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

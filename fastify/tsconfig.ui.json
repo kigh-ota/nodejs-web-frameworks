@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "es2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "jsx": "react"
+  },
+  "include": ["src/ui/**/*"]
+}
