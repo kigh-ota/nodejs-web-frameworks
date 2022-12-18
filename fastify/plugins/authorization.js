@@ -31,7 +31,7 @@ async function authorization(fastify, opts) {
   // route for logout
   fastify.get('/logout', (request, reply) => {
     if (request.session.authenticated) {
-      request.destroySession((err) => {
+      request.session.destroy((err) => {
         if (err) {
           reply.status(500)
           reply.send('Internal Server Error')
