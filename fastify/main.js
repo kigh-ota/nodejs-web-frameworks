@@ -1,9 +1,14 @@
-const fastify = require('fastify')({logger: true})
+import Fastify from 'fastify'
+import fastifyFormbody from '@fastify/formbody'
+import fastifyCookie from '@fastify/cookie'
+import fastifySession from '@fastify/session'
+
+const fastify = Fastify({logger: true})
 
 // Plugins
-fastify.register(require('@fastify/formbody'))
-fastify.register(require('@fastify/cookie'))
-fastify.register(require('@fastify/session'), {
+fastify.register(fastifyFormbody)
+fastify.register(fastifyCookie)
+fastify.register(fastifySession, {
   secret: '12345678901234567890123456789012',
   cookie: { secure: false },
   expires: 1800000

@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "@fastify/cookie": "^8.3.0",
     "@fastify/formbody": "^7.4.0",
