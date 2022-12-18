@@ -15,11 +15,6 @@ export default async function frontend(fastify, opts) {
   })
 
   fastify.get('/', (request, reply) => {
-    reply.type('text/html')
-    reply.send(defaultPage())
+    reply.sendFile('index.html')
   });
-
-  function defaultPage () {
-    return 'logged in<br><br><a href="/logout">Logout</a>'
-  }
 }
